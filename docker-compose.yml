@@ -1,0 +1,20 @@
+version: '3'
+services:
+  neo4j:
+    image: neo4j:3.2.9
+    ports:
+     - "7474:7474"
+     - "7687:7687"
+    environment:
+    - NEO4J_AUTH=none
+  cartography:
+    build: .
+    depends_on:
+    - neo4j
+    command: /usr/local/bin/dockerize -wait http://neo4j:7474 -timeout 30s cartography --neo4j-uri bolt://neo4j:7687
+    environment:
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
+    - AWS_SECURITY_TOKEN
+    volumes:
+    - ${PWD}/credentials:/root/.aws/credentials

@@ -1,0 +1,8 @@
+FROM python:3.7-alpine3.10
+ENV DOCKERIZE_VERSION v0.6.1
+ADD patch /tmp
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && pip install cartography \
+    && patch -p1 < /tmp/patch

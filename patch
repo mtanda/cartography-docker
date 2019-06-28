@@ -1,0 +1,12 @@
+diff --git a/usr/local/lib/python3.7/site-packages/cartography/intel/aws/iam.py b/usr/local/lib/python3.7/site-packages/cartography/intel/aws/iam.py
+index cc7f7a5..b4cfd4c 100644
+--- a/usr/local/lib/python3.7/site-packages/cartography/intel/aws/iam.py
++++ b/usr/local/lib/python3.7/site-packages/cartography/intel/aws/iam.py
+@@ -207,6 +207,7 @@ def load_roles(session, roles, current_aws_account_id, aws_update_tag):
+ 
+         for statement in role["AssumeRolePolicyDocument"]["Statement"]:
+             principal = statement["Principal"]
++            principal_values = []
+             if 'AWS' in principal:
+                 principal_type, principal_values = 'AWS', principal['AWS']
+             elif 'Service' in principal:
